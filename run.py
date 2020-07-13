@@ -64,6 +64,9 @@ while hasFrame:
         action.update_points(points)
         action.get_gesture()
 
+        if action.write is not None:
+            cv2.putText(frame,action.write,(0,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255), 2)
+
         for connection in connections:
             x0, y0, z0 = points[connection[0]]
             x1, y1, z1 = points[connection[1]]
@@ -73,6 +76,7 @@ while hasFrame:
             elif connection[1] == 1:
                 #Hand basejoint
                 cv2.circle(frame, (int(x0), int(y0)), THICKNESS * 2, (int(-z0)*3,int(-z0)*3,int(-z0)*3), THICKNESS)
+
 
     cv2.imshow(WINDOW, frame)
     hasFrame, frame = capture.read()

@@ -22,6 +22,7 @@ class Gesture():
         self.base_pos = []
         self.flag = 0
         self.t = 0
+        self.write = None
 
     def getdiff(self):
         """
@@ -47,7 +48,7 @@ class Gesture():
         diff_tip_base = self.tip_pos[-1][0] - self.base_pos[-1][0]
 
         if check_left_frame and check_right_frame:
-            if diff_tip_tip > 100 and diff_tip_base > 30:
+            if diff_tip_tip > 50 and diff_tip_base > 30:
                 print("Left Swipe")
                 pyautogui.typewrite(["right"])
                 return 1
@@ -96,7 +97,9 @@ class Gesture():
             self.flag = self.swipe()
             if self.flag == 1:
                 self.t = self.timestamp[-1]
+                self.write = "Left Swipe"
             else:
                 self.flag = self.scroll()
                 if self.flag == 1:
                     self.t = self.timestamp[-1]
+                    self.write = "scroll up"
